@@ -1,0 +1,6 @@
+.Colors{
+    display: flex;
+}
+.Colors>p{
+    margin-right: 10px;
+}

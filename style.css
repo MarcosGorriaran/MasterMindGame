@@ -1,6 +1,17 @@
+
+
 .Colors{
     display: flex;
 }
 .Colors>p{
     margin-right: 10px;
+}
+.MissColor{
+    background-color: red;
+}
+.ExistsColor{
+    background-color: yellow;
+}
+.RightColor{
+    background-color: green;
 }

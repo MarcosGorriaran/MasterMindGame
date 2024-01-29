@@ -5,6 +5,7 @@ const COLORS = ['white', 'blue', 'green', 'violet', 'yellow', 'red', 'orange', '
 const GREY = "grey";
 const WHITE = "white";
 const BLACK = "black";
+const SELECTED_CLASS = "selected";
 
 
 //Declaración de variables globales.
@@ -20,9 +21,16 @@ function init() {
 }
 
 function AddSelectFunction(selections){
-    for(let i = 0; i<)
+    for(let i = 0; i<selections.length; i++){
+        selections[i].addEventListener("click", (Event) =>{
+            if(Event.shiftKey){
+                SelectedMultiple(selections[i]);
+            }else{
+                Selected(selections[i]);
+            }
+        });
+    }
 }
-
 /* Llamaremos a esta función desde el botón HTML de la página para comprobar la propuesta de combinación que nos ha
 introducido el usuario.
 Informamos al usuario del resultado y del número de intentos que lleva*/
@@ -32,11 +40,18 @@ function Comprobar() {
 
 /** Procedimiento que se ejecuta cada vez que el usuario selecciona un color, hasta el número máximo de colores permitidos en la combinación. */
 function añadeColor(color) {
-   
+   let elements 
 }
 
-function Selected(){
-    
+function Selected(docElement){
+    let selected = document.querySelectorAll("."+SELECTED_CLASS);
+    for(let element of selected){
+        element.classList.remove(SELECTED_CLASS);
+    }
+    docElement.classList.add(SELECTED_CLASS);
+}
+function SelectedMultiple(docElement){
+    docElement.classList.add(SELECTED_CLASS);
 }
 /** Template con el código HTML que corresponde a cada fila de juego/intento. */
 const ROW_RESULT = `<div class="rowResult w100 flex wrap">

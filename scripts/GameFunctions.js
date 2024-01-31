@@ -51,3 +51,9 @@ function GetFoundState(colorSequence, compareSequence){
     }
     return compareResult;
 }
+function AreAllCorrect(getFoundStateResults){
+    for(let element of getFoundStateResults){
+        if(element!=1) return false;
+    }
+    return true;
+}

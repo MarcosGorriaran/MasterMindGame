@@ -10,7 +10,7 @@ const BLACK = "black";
 const BLACKANSWER = 1;
 const ROWRESULTID = "Result";
 const SELECTED_CLASS = "selected";
-const USERCHOICESELECTOR = ".rowUserCombi:first-child>div>div";
+const USERCHOICESELECTOR = ".rowResult:first-child .rowUserCombi>div>div";
 const CIRCLERESULTSELECTOR = ".rowResult:first-child .rowCercleResult .cercleResult";
 
 
@@ -55,6 +55,8 @@ function RemoveSelectFunction(selections){
 introducido el usuario.
 Informamos al usuario del resultado y del número de intentos que lleva*/
 function Comprobar() {
+    userCombi = [];
+    console.log(userCombi);
     let createNewBox;
     let result;
     let userChoiceBoxes = document.querySelectorAll(USERCHOICESELECTOR);
@@ -63,14 +65,15 @@ function Comprobar() {
     userCombi = GetUserCombi(userChoiceBoxes);
     result = GetFoundState(master, userCombi);
     console.log(result);
+    console.log(userCombi);
     createNewBox = !AreAllCorrect(result);
     result = TranslateGroupResultToColor(result);
-    console.log();
     ShowAnswer(resultShowBoxes,result);
     if(createNewBox){
         AddNewRowResult(document.getElementById(ROWRESULTID));
         AddSelectFunction(document.querySelectorAll(USERCHOICESELECTOR));
     }
+    
 }
 function GetUserCombi(boxes){
     let combi = [];

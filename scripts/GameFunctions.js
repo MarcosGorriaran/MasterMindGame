@@ -48,9 +48,6 @@ function GetFoundState(colorSequence, compareSequence){
             foundValuesList[compareSequence[i]]--;
         }
         compareSequence[i]=null;
-        console.log(foundValuesList);
-        console.log(colorIndex+" "+i);
-        console.log(compareSequence);
     }
     return compareResult;
 }

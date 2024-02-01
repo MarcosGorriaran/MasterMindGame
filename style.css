@@ -15,7 +15,6 @@
 .RightColor{
     background-color: green;
 }
-
 main{
     padding: 0;
     margin: 0;
@@ -138,7 +137,6 @@ main{
     width: 30px;
     position: relative;
     margin: 2px auto;
-    background-color: grey;
     border-radius: 50%;  
     border: 1px solid grey;  
 }

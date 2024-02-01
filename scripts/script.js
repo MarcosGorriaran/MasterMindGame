@@ -11,7 +11,7 @@ const BLACKANSWER = 1;
 const ROWRESULTID = "Result";
 const SELECTED_CLASS = "selected";
 const USERCHOICESELECTOR = ".rowUserCombi:first-child>div>div";
-const CIRCLERESULTSELECTOR = ".rowCercleResult:first-child>div>div";
+const CIRCLERESULTSELECTOR = ".rowResult:first-child .rowCercleResult .cercleResult";
 
 
 
@@ -22,14 +22,15 @@ var intento = 0;
 var aciertos = 0;
 let selected 
 function init() {
-    
+    console.log(master);
     //1. Genera el código random del master
     AddNewRowResult(document.getElementById(ROWRESULTID));
     AddSelectFunction(document.querySelectorAll(USERCHOICESELECTOR));
     //2. Crea todas las filas según el número de intentos.
 }
 function AddNewRowResult(element){
-    element.innerHTML= ROW_RESULT+element.innerHTML;
+    let html = element.innerHTML;
+    element.innerHTML = ROW_RESULT+html;
 }
 function AddSelectFunction(selections){
     for(let i = 0; i<selections.length; i++){
@@ -65,9 +66,10 @@ function Comprobar() {
     createNewBox = !AreAllCorrect(result);
     result = TranslateGroupResultToColor(result);
     console.log();
-    ShowAnswer(resultShowBoxes);
+    ShowAnswer(resultShowBoxes,result);
     if(createNewBox){
         AddNewRowResult(document.getElementById(ROWRESULTID));
+        AddSelectFunction(document.querySelectorAll(USERCHOICESELECTOR));
     }
 }
 function GetUserCombi(boxes){
@@ -106,7 +108,7 @@ function TranslateResultToColor(answer){
 }
 function ShowAnswer(elements, sequence){
     for(let i in sequence){
-        elements[i].classList.add(sequence[i]);
+        elements[i].style.backgroundColor = sequence[i];
     }
 }
 /** Procedimiento que se ejecuta cada vez que el usuario selecciona un color, hasta el número máximo de colores permitidos en la combinación. */
@@ -169,5 +171,5 @@ const ROW_RESULT = `<div class="rowResult w100 flex wrap">
    <div class="w40 h40">
        <div class="cercleResult flex"></div>
    </div>
-<div>
+</div>
 </div>`;

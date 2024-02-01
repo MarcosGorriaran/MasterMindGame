@@ -12,22 +12,44 @@ const ROWRESULTID = "Result";
 const SELECTED_CLASS = "selected";
 const USERCHOICESELECTOR = ".rowResult:first-child .rowUserCombi>div>div";
 const CIRCLERESULTSELECTOR = ".rowResult:first-child .rowCercleResult .cercleResult";
+const RETRYCOUNTERID = "RetryAmounts";
+const WINBOXID = "WinBox";
+const LOSTBOXID = "LostBox";
+const SHOWRESULTBOXQUERY = "#master>div>div>div";
 
 
 
 //Declaración de variables globales.
-let master = PickSequence(COLORS, MAX_COMBI_COLORES);
+let master;
 let userCombi = [];
 var intento = 0;
 var aciertos = 0;
 let selected 
 function init() {
-    console.log(master);
+    document.getElementById(RETRYCOUNTERID).addEventListener("blur", (Event) =>{
+        AlteredRetryCase();
+    });
+    document.getElementById(RETRYCOUNTERID).addEventListener("click", (Event) =>{
+        AlteredRetryCase();
+    });
+
+
     //1. Genera el código random del master
+    master = PickSequence(COLORS, MAX_COMBI_COLORES);
+    console.log(master);
+    //2. Crea todas las filas según el número de intentos.
+    ChangeCounter(MAX_INTENTOS);
     AddNewRowResult(document.getElementById(ROWRESULTID));
     AddSelectFunction(document.querySelectorAll(USERCHOICESELECTOR));
-    //2. Crea todas las filas según el número de intentos.
 }
+
+
+
+function ChangeCounter(retry){
+    document.getElementById(RETRYCOUNTERID).setAttribute("value",retry);
+    return retry;
+}
+
 function AddNewRowResult(element){
     let html = element.innerHTML;
     element.innerHTML = ROW_RESULT+html;
@@ -51,6 +73,11 @@ function RemoveSelectFunction(selections){
         selections[i].parentNode.replaceChild(clone, selections[i]);
     }
 }
+function RemoveRetryCountEVent(){
+    let input = document.getElementById(RETRYCOUNTERID);
+    let clone = input.cloneNode(true);
+    input.parentNode.replaceChild(clone, input);
+}
 /* Llamaremos a esta función desde el botón HTML de la página para comprobar la propuesta de combinación que nos ha
 introducido el usuario.
 Informamos al usuario del resultado y del número de intentos que lleva*/
@@ -59,6 +86,7 @@ function Comprobar() {
     console.log(userCombi);
     let createNewBox;
     let result;
+    let retries = document.getElementById(RETRYCOUNTERID).value;
     let userChoiceBoxes = document.querySelectorAll(USERCHOICESELECTOR);
     let resultShowBoxes = document.querySelectorAll(CIRCLERESULTSELECTOR);
     RemoveSelectFunction(userChoiceBoxes);
@@ -70,10 +98,38 @@ function Comprobar() {
     result = TranslateGroupResultToColor(result);
     ShowAnswer(resultShowBoxes,result);
     if(createNewBox){
-        AddNewRowResult(document.getElementById(ROWRESULTID));
-        AddSelectFunction(document.querySelectorAll(USERCHOICESELECTOR));
+        retries-=1;
+        ChangeCounter(retries);
+        if(retries<=0){
+            ShowBox(document.getElementById(LOSTBOXID));
+        }else{
+            AddNewRowResult(document.getElementById(ROWRESULTID));
+            AddSelectFunction(document.querySelectorAll(USERCHOICESELECTOR));
+        }
+        
+    }else{
+        ShowBox(document.getElementById(WINBOXID));
+        ShowAnswer(document.querySelectorAll(SHOWRESULTBOXQUERY),master);
+        RemoveRetryCountEVent();
     }
-    
+}
+function AlteredRetryCase(){
+    let retries = document.getElementById(RETRYCOUNTERID).value;
+    let userChoiceBoxes = document.querySelectorAll(USERCHOICESELECTOR);
+    if(retries>0){
+        HideBox(document.getElementById(LOSTBOXID));
+        AddSelectFunction(userChoiceBoxes);
+    }else{
+        ShowBox(document.getElementById(LOSTBOXID));
+        RemoveSelectFunction(userChoiceBoxes);
+    }
+}
+
+function ShowBox(element){
+    element.removeAttribute("hidden");
+}
+function HideBox(element){
+    element.setAttribute("hidden","");
 }
 function GetUserCombi(boxes){
     let combi = [];

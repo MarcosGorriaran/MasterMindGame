@@ -13,6 +13,13 @@
     <main class="w100">
         <div class="bloqueado">
             <h1>Mastermind</h1>
+            <form>
+                <label>Intentos: </label>
+                <input type="number" id="RetryAmounts">
+                <button>Empezar de nuevo</button>
+            </form>
+            <p hidden id="WinBox">Has ganado</p>
+            <p hidden id="LostBox">Has perdido</p>
             <section id="master" class="w100 flex wrap center">
                 <div class="w100 flex wrap">
                     <div class="w25">
@@ -64,7 +71,7 @@
             </section>
 
             <section class="w100 info">
-                <p class="w90" id="info">Primer intento, suerte!</p>
+                <p class="w90" id="info">Intento actual, suerte!</p>
             </section>
         </div>
 
@@ -80,10 +87,9 @@
     </main>
 </body>
 
-lor">
+
     </form>
 </body>
-or">
     </form>
 </body>
 </html>

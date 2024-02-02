@@ -1,6 +1,6 @@
 //Declaración de constantes.
 const MAX_INTENTOS = 10;
-const MAX_COMBI_COLORES = 4;
+const MAX_COMBI_COLORES = 6;
 const COLORS = ['white', 'blue', 'green', 'violet', 'yellow', 'red', 'orange', 'cyan'];
 const GREY = "grey";
 const GREYANSWER = -1;
@@ -12,10 +12,16 @@ const ROWRESULTID = "Result";
 const SELECTED_CLASS = "selected";
 const USERCHOICESELECTOR = ".rowResult:first-child .rowUserCombi>div>div";
 const CIRCLERESULTSELECTOR = ".rowResult:first-child .rowCercleResult .cercleResult";
+const USERCHOICEROWSELECTOR = ".rowResult:first-child .rowUserCombi";
+const CIRCLERESULTROWSELECTOR = ".rowResult:first-child .rowCercleResult";
+const SHOWRESULTBOXQUERY = "#master>div>div>div";
+const SHOWRESULTBOXROWQUERY = "#master>div";
+const OPTIONBOXQUERY = ".OptionBox";
+const OPTIONSINGULARQUERY = ".OptionBox>div>div";
 const RETRYCOUNTERID = "RetryAmounts";
 const WINBOXID = "WinBox";
 const LOSTBOXID = "LostBox";
-const SHOWRESULTBOXQUERY = "#master>div>div>div";
+
 
 
 
@@ -40,7 +46,8 @@ function init() {
     console.log(master);
     //2. Crea todas las filas según el número de intentos.
     ChangeCounter(MAX_INTENTOS);
-    AddNewRowResult(document.getElementById(ROWRESULTID));
+    PlaceMasterShowBoxes(MAX_COMBI_COLORES);
+    AddNewRowResult(document.getElementById(ROWRESULTID),MAX_COMBI_COLORES);
     AddSelectFunction(document.querySelectorAll(USERCHOICESELECTOR));
 }
 
@@ -51,9 +58,30 @@ function ChangeCounter(retry){
     return retry;
 }
 
-function AddNewRowResult(element){
+function AddNewRowResult(element, combiOptions){
     let html = element.innerHTML;
     element.innerHTML = ROW_RESULT+html;
+    let userChoiceRow = document.querySelector(USERCHOICEROWSELECTOR);
+    let circleChoiceRow = document.querySelector(CIRCLERESULTROWSELECTOR);
+    for(let i = 0; i<combiOptions; i++){
+        userChoiceRow.innerHTML+=INTERACTIVEBOX;
+        circleChoiceRow.innerHTML+=ANSWERSHOWER;
+    }
+}
+function PlaceMasterShowBoxes(combiOptions){
+    let masterRow = document.querySelector(SHOWRESULTBOXROWQUERY);
+
+    for(let i = 0; i<combiOptions; i++){
+        masterRow.innerHTML+=MASTERSHOWERBOX;
+    }
+}
+function PlaceColorsOptions(){
+    let optionBox = document.querySelector(OPTIONBOXQUERY);
+    let 
+    for(let element of COLORS){
+        optionBox.innerHTML+=COLOROPTIONBOX;
+
+    }
 }
 function AddSelectFunction(selections){
     for(let i = 0; i<selections.length; i++){
@@ -103,7 +131,7 @@ function Comprobar() {
             if(retries<=0){
                 ShowBox(document.getElementById(LOSTBOXID));
             }else{
-                AddNewRowResult(document.getElementById(ROWRESULTID));
+                AddNewRowResult(document.getElementById(ROWRESULTID),MAX_COMBI_COLORES);
                 AddSelectFunction(document.querySelectorAll(USERCHOICESELECTOR));
             }
             
@@ -203,33 +231,29 @@ function SelectedMultiple(docElement){
     docElement.classList.add(SELECTED_CLASS);
 }
 /** Template con el código HTML que corresponde a cada fila de juego/intento. */
-const ROW_RESULT = `<div class="rowResult w100 flex wrap">
-<div class="rowUserCombi w75 flex wrap">
-   <div class="w25">
-       <div class="celUserCombi flex grey"></div>
-   </div>
-   <div class="w25">
-       <div class="celUserCombi flex grey"></div>
-   </div>
-   <div class="w25">
-       <div class="celUserCombi flex grey"></div>
-   </div>
-   <div class="w25">
-       <div class="celUserCombi flex grey"></div>
-   </div>
-</div>
-<div class="rowCercleResult w25 flex wrap center">
-   <div class="w40 h40">
-        <div class="cercleResult flex"></div>
-   </div>
-   <div class="w40 h40">
-       <div class="cercleResult flex"></div>
-   </div>
-   <div class="w40 h40">
-       <div class="cercleResult flex"></div>
-   </div>
-   <div class="w40 h40">
-       <div class="cercleResult flex"></div>
-   </div>
-</div>
+const INTERACTIVEBOX = 
+`<div class="w25">
+    <div class="celUserCombi flex grey"></div>
 </div>`;
+const ANSWERSHOWER = 
+`<div class="w40 h40">
+    <div class="cercleResult flex"></div>
+</div>`;
+const ROW_RESULT = 
+`<div class="rowResult w100 flex wrap">
+    <div class="rowUserCombi w75 flex wrap">
+    
+    </div>
+    <div class="rowCercleResult w25 flex wrap center">
+    
+    </div>
+</div>`;
+const MASTERSHOWERBOX = `
+<div class="w25">
+    <div class="cel flex"></div>
+</div>`;
+const COLOROPTIONBOX = `
+<div class="w8">
+    <div class="w100 cel flex"></div>
+</div>
+`;

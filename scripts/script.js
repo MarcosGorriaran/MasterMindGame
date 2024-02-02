@@ -95,7 +95,6 @@ function Comprobar() {
         userCombi = GetUserCombi(userChoiceBoxes);
         result = GetFoundState(copyMaster, userCombi);
         createNewBox = !AreAllCorrect(result);
-        console.log(result);
         result = TranslateGroupResultToColor(result);
         ShowAnswer(resultShowBoxes,result);
         if(createNewBox){

@@ -26,8 +26,6 @@ for(let element of array){
     }
     
 }
-console.log(array);
-console.log(foundValues);
 return foundValues;
 }
 function GetFoundState(colorSequence, compareSequence){

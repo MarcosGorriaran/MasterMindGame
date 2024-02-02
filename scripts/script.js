@@ -46,7 +46,7 @@ function init() {
 
 
 function ChangeCounter(retry){
-    document.getElementById(RETRYCOUNTERID).setAttribute("value",retry);
+    document.getElementById(RETRYCOUNTERID).value=retry;
     return retry;
 }
 
@@ -98,7 +98,7 @@ function Comprobar() {
     result = TranslateGroupResultToColor(result);
     ShowAnswer(resultShowBoxes,result);
     if(createNewBox){
-        retries-=1;
+        retries--;
         ChangeCounter(retries);
         if(retries<=0){
             ShowBox(document.getElementById(LOSTBOXID));

@@ -83,32 +83,36 @@ function RemoveRetryCountEVent(){
 introducido el usuario.
 Informamos al usuario del resultado y del número de intentos que lleva*/
 function Comprobar() {
-    userCombi = [];
+    
+    let copyMaster = [...master];
     let createNewBox;
     let result;
     let retries = document.getElementById(RETRYCOUNTERID).value;
     let userChoiceBoxes = document.querySelectorAll(USERCHOICESELECTOR);
     let resultShowBoxes = document.querySelectorAll(CIRCLERESULTSELECTOR);
-    RemoveSelectFunction(userChoiceBoxes);
-    userCombi = GetUserCombi(userChoiceBoxes);
-    result = GetFoundState(master, userCombi);
-    createNewBox = !AreAllCorrect(result);
-    result = TranslateGroupResultToColor(result);
-    ShowAnswer(resultShowBoxes,result);
-    if(createNewBox){
-        retries--;
-        ChangeCounter(retries);
-        if(retries<=0){
-            ShowBox(document.getElementById(LOSTBOXID));
+    if(retries>0){
+        RemoveSelectFunction(userChoiceBoxes);
+        userCombi = GetUserCombi(userChoiceBoxes);
+        result = GetFoundState(copyMaster, userCombi);
+        createNewBox = !AreAllCorrect(result);
+        console.log(result);
+        result = TranslateGroupResultToColor(result);
+        ShowAnswer(resultShowBoxes,result);
+        if(createNewBox){
+            retries--;
+            ChangeCounter(retries);
+            if(retries<=0){
+                ShowBox(document.getElementById(LOSTBOXID));
+            }else{
+                AddNewRowResult(document.getElementById(ROWRESULTID));
+                AddSelectFunction(document.querySelectorAll(USERCHOICESELECTOR));
+            }
+            
         }else{
-            AddNewRowResult(document.getElementById(ROWRESULTID));
-            AddSelectFunction(document.querySelectorAll(USERCHOICESELECTOR));
+            ShowBox(document.getElementById(WINBOXID));
+            ShowAnswer(document.querySelectorAll(SHOWRESULTBOXQUERY),master);
+            RemoveRetryCountEVent();
         }
-        
-    }else{
-        ShowBox(document.getElementById(WINBOXID));
-        ShowAnswer(document.querySelectorAll(SHOWRESULTBOXQUERY),master);
-        RemoveRetryCountEVent();
     }
 }
 function AlteredRetryCase(){

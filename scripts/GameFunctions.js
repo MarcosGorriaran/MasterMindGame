@@ -26,29 +26,36 @@ for(let element of array){
     }
     
 }
+console.log(array);
+console.log(foundValues);
 return foundValues;
 }
 function GetFoundState(colorSequence, compareSequence){
     const notExists = -1, missplace = 0, correctPlace = 1;
     let foundValuesList = GetAmountDiferentValues(colorSequence);
     let compareResult = Array(colorSequence.length);
+    let colorIndex;
     for(let i in compareSequence){
-        let colorIndex = FindIndex(colorSequence, compareSequence[i]);
-        console.log(colorIndex);
-        if(colorIndex==i){
+        if(colorSequence[i]==compareSequence[i]){
             compareResult[i]=correctPlace;
-            foundValuesList[compareSequence[i]]--;
-        }else if(colorIndex==notExists){
+            foundValuesList[compareSequence[i]]=foundValuesList[compareSequence[i]]-1;
+        }
+    }
+    for(let i in compareSequence){
+        colorIndex = FindIndex(colorSequence, compareSequence[i]);
+        if(colorIndex==notExists){
             compareResult[i]=notExists;
         }else{
-            if(foundValuesList[compareSequence[i]]>0){
+            if(foundValuesList[compareSequence[i]]>0 && compareResult[compareSequence[i]]!=correctPlace){
                 compareResult[i]=missplace;
-                foundValuesList[compareSequence[i]]--;
-            }else{
+                foundValuesList[compareSequence[i]]=foundValuesList[compareSequence[i]]-1;
+                
+            }else if(compareResult[i]!=correctPlace){
                 compareResult[i]=notExists;
             }
         }
-        compareSequence[i]=null;
+        console.log(foundValuesList);
+        console.log(compareSequence);
     }
     return compareResult;
 }

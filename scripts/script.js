@@ -36,6 +36,7 @@ function init() {
 
     //1. Genera el código random del master
     master = PickSequence(COLORS, MAX_COMBI_COLORES);
+    console.log("Has encontrado mi trampa para los curiosos");
     console.log(master);
     //2. Crea todas las filas según el número de intentos.
     ChangeCounter(MAX_INTENTOS);
@@ -83,7 +84,6 @@ introducido el usuario.
 Informamos al usuario del resultado y del número de intentos que lleva*/
 function Comprobar() {
     userCombi = [];
-    console.log(userCombi);
     let createNewBox;
     let result;
     let retries = document.getElementById(RETRYCOUNTERID).value;
@@ -92,8 +92,6 @@ function Comprobar() {
     RemoveSelectFunction(userChoiceBoxes);
     userCombi = GetUserCombi(userChoiceBoxes);
     result = GetFoundState(master, userCombi);
-    console.log(result);
-    console.log(userCombi);
     createNewBox = !AreAllCorrect(result);
     result = TranslateGroupResultToColor(result);
     ShowAnswer(resultShowBoxes,result);

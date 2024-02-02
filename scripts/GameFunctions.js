@@ -33,19 +33,20 @@ function GetFoundState(colorSequence, compareSequence){
     let foundValuesList = GetAmountDiferentValues(colorSequence);
     let compareResult = Array(colorSequence.length);
     for(let i in compareSequence){
-        let colorIndex = FindIndex(compareSequence, colorSequence[i]);
-        if(colorIndex==notExists){
+        let colorIndex = FindIndex(colorSequence, compareSequence[i]);
+        console.log(colorIndex);
+        if(colorIndex==i){
+            compareResult[i]=correctPlace;
+            foundValuesList[compareSequence[i]]--;
+        }else if(colorIndex==notExists){
             compareResult[i]=notExists;
-        }else if(colorIndex!=i){
+        }else{
             if(foundValuesList[compareSequence[i]]>0){
                 compareResult[i]=missplace;
                 foundValuesList[compareSequence[i]]--;
             }else{
                 compareResult[i]=notExists;
             }
-        }else{
-            compareResult[i]=correctPlace;
-            foundValuesList[compareSequence[i]]--;
         }
         compareSequence[i]=null;
     }

@@ -2,7 +2,7 @@ function PickSequence(options, lengthSequence){
     let pick =new Array(lengthSequence);
 
     for(let i = 0; i<pick.length; i++){
-        pick[i] = options[Math.floor(Math.random()*pick.length)];
+        pick[i] = options[Math.floor(Math.random()*options.length)];
     }
 
     return pick;

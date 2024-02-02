@@ -54,8 +54,6 @@ function GetFoundState(colorSequence, compareSequence){
                 compareResult[i]=notExists;
             }
         }
-        console.log(foundValuesList);
-        console.log(compareSequence);
     }
     return compareResult;
 }

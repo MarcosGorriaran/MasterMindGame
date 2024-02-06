@@ -74,7 +74,6 @@ main{
 }
 
 .bloqueado{
-    position: sticky;
     top:0;
     background-color: white;
     z-index: 100;
@@ -87,6 +86,9 @@ main{
 #red{background-color: red;}
 #orange{background-color: orange;}
 #cyan{background-color: cyan;}
+#darkslategray{
+    background-color: darkslategray;
+}
 
 .white{background-color: white; border: 1px solid gray;}
 .blue{background-color: blue;}
@@ -96,6 +98,9 @@ main{
 .red{background-color: red;}
 .orange{background-color: orange;}
 .cyan{background-color: cyan;}
+.darkslategray{
+    background-color: darkslategray;
+}
 
 .grey{background-color: #BABABA;}
 

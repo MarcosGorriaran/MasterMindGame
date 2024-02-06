@@ -1,6 +1,6 @@
 //Declaración de constantes.
 const MAX_INTENTOS = 10;
-const MAX_COMBI_COLORES = 6;
+const MAX_COMBI_COLORES = 4;
 const COLORS = ['white', 'blue', 'green', 'violet', 'yellow', 'red', 'orange', 'cyan'];
 const GREY = "grey";
 const GREYANSWER = -1;
@@ -16,8 +16,8 @@ const USERCHOICEROWSELECTOR = ".rowResult:first-child .rowUserCombi";
 const CIRCLERESULTROWSELECTOR = ".rowResult:first-child .rowCercleResult";
 const SHOWRESULTBOXQUERY = "#master>div>div>div";
 const SHOWRESULTBOXROWQUERY = "#master>div";
-const OPTIONBOXQUERY = ".OptionBox";
-const OPTIONSINGULARQUERY = ".OptionBox>div>div";
+const OPTIONBOXCONTAINERQUERY = ".OptionBox";
+const OPTIONBOXQUERY = ".OptionBox>div>div";
 const RETRYCOUNTERID = "RetryAmounts";
 const WINBOXID = "WinBox";
 const LOSTBOXID = "LostBox";
@@ -38,11 +38,11 @@ function init() {
     document.getElementById(RETRYCOUNTERID).addEventListener("click", (Event) =>{
         AlteredRetryCase();
     });
-
+    PlaceColorsOptions();
 
     //1. Genera el código random del master
     master = PickSequence(COLORS, MAX_COMBI_COLORES);
-    console.log("Has encontrado mi trampa para los curiosos");
+    console.log("Has encontrado mi trampa para los curiosos y si, lo he dejado aposta");
     console.log(master);
     //2. Crea todas las filas según el número de intentos.
     ChangeCounter(MAX_INTENTOS);
@@ -76,11 +76,16 @@ function PlaceMasterShowBoxes(combiOptions){
     }
 }
 function PlaceColorsOptions(){
-    let optionBox = document.querySelector(OPTIONBOXQUERY);
-    let 
+    let optionBoxContainer = document.querySelector(OPTIONBOXCONTAINERQUERY);
+    let optionBox;
     for(let element of COLORS){
-        optionBox.innerHTML+=COLOROPTIONBOX;
-
+        optionBoxContainer.innerHTML+=COLOROPTIONBOX;
+        optionBox = document.querySelectorAll(OPTIONBOXQUERY);
+        optionBox[optionBox.length-1].setAttribute("id", element);
+        optionBox[optionBox.length-1].setAttribute("onclick", "añadeColor('"+element+"')");
+        optionBox[optionBox.length-1].addEventListener("click", (Event) =>{
+            añadeColor(element);
+        });
     }
 }
 function AddSelectFunction(selections){
